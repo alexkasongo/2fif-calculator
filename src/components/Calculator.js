@@ -3,28 +3,89 @@ import NumericInput from 'react-numeric-input';
 
 const Calculator = () => {  
     // store investment amount and share price values to state
-    const [investmentAmount, setInvestmentAmount] = useState(0);
-    const [shares, setShares] = useState(0);
+    const [initialInvestment, setinitialInvestment] = useState(0);
+    const [sharePrice, setSharePrice] = useState(0);
 
+    // #### initial 1 ####
     // store 2/5 price and share state
     const [twoFifthsPrice, setTwoFifthsPrice] = useState(0)
     const [twoFifthsShares, setTwoFifthsShares] = useState(0)
+    // #################
+
+    // #### LEVEL 1 ####
+    const [priceDropLevelOne, setPriceDropLevelOne] = useState(0)
+    const [oneFifthsInvestment, setoneFifthsInvestment] = useState(0)
+    const [levelOneShares, setlevelOneShares] = useState(0)
+    // #################
+    
+    // #### LEVEL 2 ####
+    const [priceDropLevelTwo, setPriceDropLevelTwo] = useState(0)
+    const [levelTwoShares, setlevelTwoShares] = useState(0)
+    // #################
+    
+    // #### LEVEL 3 ####
+    // #################
+
+    const [inputDisabled, setInputDisabled] = useState(true)
 
     useEffect(() => {
-        console.log(`calculator.js - 9 - 🏝`, {investmentAmount, shares});
+        console.log(`calculator.js - 9 - 🏝`, {sharePrice});
         
+
+        if(initialInvestment !== 0) {
+            setInputDisabled(false)
+        } 
+
+        // if(sharePrice === 0) {
+        //     setInputDisabled(true)
+        // } else {
+        //     setInputDisabled(false)
+        // }
+
+        // #### LEVEL 1 ####
         // calculate twoFifthsPrice
-        setTwoFifthsPrice(investmentAmount * 0.4)
+        setTwoFifthsPrice(initialInvestment * 0.4)
         // calculate twoFifthsShares
-        if (investmentAmount === 0 && shares === 0) {
+        if (initialInvestment === 0 && sharePrice === 0) {
             setTwoFifthsShares(0)
         } 
-        if(shares === 0) {
-
+        if(sharePrice === 0) {
+            setTwoFifthsShares(0)
         } else {
-            setTwoFifthsShares(investmentAmount/shares)
+            setTwoFifthsShares(twoFifthsPrice/sharePrice)
         }
-    }, [investmentAmount, shares]);
+        // #################
+
+        // #### LEVEL 2 ####
+        setPriceDropLevelOne(sharePrice * (1 - 0.1))
+        setoneFifthsInvestment(initialInvestment * 0.2)
+
+        if (initialInvestment === 0 && sharePrice === 0) {
+            setlevelOneShares(0)
+        } 
+        if(sharePrice === 0) {
+            setlevelOneShares(0)
+        } else {
+            setlevelOneShares(oneFifthsInvestment/priceDropLevelOne)
+        }
+        // calculate -10% price drop
+
+        // #################
+        setPriceDropLevelTwo(priceDropLevelOne * (1 - 0.1))
+
+        if (initialInvestment === 0 && sharePrice === 0) {
+            setlevelOneShares(0)
+        } 
+        if(sharePrice === 0) {
+            setlevelOneShares(0)
+        } else {
+            setlevelTwoShares(oneFifthsInvestment/priceDropLevelTwo)
+        }
+        // #### LEVEL 3 ####
+        // #################
+        // #### LEVEL 4 ####
+        // #################
+    }, [initialInvestment, sharePrice]);
     
     // const handleSubmit = () => {
     //     console.log(`calculator.js - 5 - ✅`);
@@ -44,11 +105,11 @@ const Calculator = () => {
             <div className="row-two">
                 <div>
                     <div className="subtitle">Investment Amount</div>
-                    <NumericInput value={investmentAmount} onChange={setInvestmentAmount}/>
+                    <NumericInput value={initialInvestment} onChange={setinitialInvestment}/>
                 </div>
                 <div>
                     <div className="subtitle">Price per share</div>
-                    <NumericInput step={0.1} precision={4} value={shares} onChange={setShares}/>
+                    <NumericInput disabled={inputDisabled} step={0.1} precision={4} value={sharePrice} onChange={setSharePrice}/>
                 </div>
             </div>
             <div className="row-three">
@@ -56,7 +117,7 @@ const Calculator = () => {
                     <div>2/5</div>
                     <div>
                         <div className="init">
-                            <div className="subtitle-light">Initial share price</div>
+                            <div className="subtitle-light">Initial investment</div>
                             <div className="amount">{twoFifthsPrice}</div>
                         </div>
                         <div className="init">
@@ -68,42 +129,48 @@ const Calculator = () => {
                 <div className="two-fifths level-two">
                     <div className="subtitle-light">1/5</div>
                     <div>
-                        <div className="init">-10%</div>
                         <div className="init">
-                            <div className="subtitle-light">Initial share price</div>
-                            <div className="amount">200</div>
+                            <div className="subtitle-light">-10% price drop 1</div>
+                            <div className="amount">{priceDropLevelOne}</div>
                         </div>
                         <div className="init">
-                            <div className="subtitle-light">Initial shares</div>
-                            <div className="shares">100</div>
+                            <div className="subtitle-light">Investment</div>
+                            <div className="amount">{oneFifthsInvestment}</div>
+                        </div>
+                        <div className="init">
+                            <div className="subtitle-light">Shares</div>
+                            <div className="shares">{levelOneShares}</div>
                         </div>
                     </div>
                 </div>
                 <div className="two-fifths level-three">
                     <div className="subtitle-light">1/5</div>
                     <div>
-                        <div className="init">-10%</div>
                         <div className="init">
-                            <div className="subtitle-light">Initial share price</div>
-                            <div className="amount">200</div>
+                            <div className="subtitle-light">-10% price drop 2</div>
+                            <div className="amount">{priceDropLevelTwo}</div>
                         </div>
                         <div className="init">
-                            <div className="subtitle-light">Initial shares</div>
-                            <div className="shares">100</div>
+                            <div className="subtitle-light">Investment</div>
+                            <div className="amount">{oneFifthsInvestment}</div>
+                        </div>
+                        <div className="init">
+                            <div className="subtitle-light">Shares</div>
+                            <div className="shares">{levelTwoShares}</div>
                         </div>
                     </div>
                 </div>
                 <div className="two-fifths level-four">
                     <div className="subtitle-light">1/5</div>
                     <div>
-                        <div className="init">-10%</div>
+                        <div className="init">-10% price drop 3</div>
                         <div className="init">
-                            <div className="subtitle-light">Initial share price</div>
+                            <div className="subtitle-light">Investment</div>
                             <div className="amount">200</div>
                         </div>
                         <div className="init">
-                            <div className="subtitle-light">Initial shares</div>
-                            <div className="shares">100</div>
+                            <div className="subtitle-light">Shares</div>
+                            <div className="shares">?</div>
                         </div>
                     </div>
                 </div>
