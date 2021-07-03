@@ -24,6 +24,8 @@ const Calculator = () => {
     // #################
     
     // #### LEVEL 3 ####
+    const [priceDropLevelThree, setPriceDropLevelThree] = useState(0)
+    const [levelThreeShares, setlevelThreeShares] = useState(0)
     // #################
 
     const [inputDisabled, setInputDisabled] = useState(true)
@@ -35,12 +37,6 @@ const Calculator = () => {
         if(initialInvestment !== 0) {
             setInputDisabled(false)
         } 
-
-        // if(sharePrice === 0) {
-        //     setInputDisabled(true)
-        // } else {
-        //     setInputDisabled(false)
-        // }
 
         // #### LEVEL 1 ####
         // calculate twoFifthsPrice
@@ -59,7 +55,7 @@ const Calculator = () => {
         // #### LEVEL 2 ####
         setPriceDropLevelOne(sharePrice * (1 - 0.1))
         setoneFifthsInvestment(initialInvestment * 0.2)
-
+        // calculate levelOneShares
         if (initialInvestment === 0 && sharePrice === 0) {
             setlevelOneShares(0)
         } 
@@ -68,11 +64,10 @@ const Calculator = () => {
         } else {
             setlevelOneShares(oneFifthsInvestment/priceDropLevelOne)
         }
-        // calculate -10% price drop
 
-        // #################
+        // calculate levelTwoShares
         setPriceDropLevelTwo(priceDropLevelOne * (1 - 0.1))
-
+        
         if (initialInvestment === 0 && sharePrice === 0) {
             setlevelOneShares(0)
         } 
@@ -81,7 +76,18 @@ const Calculator = () => {
         } else {
             setlevelTwoShares(oneFifthsInvestment/priceDropLevelTwo)
         }
+        // #################
+
         // #### LEVEL 3 ####
+        setPriceDropLevelThree(priceDropLevelTwo * (1 - 0.1))
+        if (initialInvestment === 0 && sharePrice === 0) {
+            setlevelOneShares(0)
+        } 
+        if(sharePrice === 0) {
+            setlevelOneShares(0)
+        } else {
+            setlevelThreeShares(oneFifthsInvestment/priceDropLevelThree)
+        }
         // #################
         // #### LEVEL 4 ####
         // #################
@@ -163,14 +169,17 @@ const Calculator = () => {
                 <div className="two-fifths level-four">
                     <div className="subtitle-light">1/5</div>
                     <div>
-                        <div className="init">-10% price drop 3</div>
+                    <div className="init">
+                            <div className="subtitle-light">-10% price drop 2</div>
+                            <div className="amount">{priceDropLevelThree}</div>
+                        </div>
                         <div className="init">
                             <div className="subtitle-light">Investment</div>
-                            <div className="amount">200</div>
+                            <div className="amount">{oneFifthsInvestment}</div>
                         </div>
                         <div className="init">
                             <div className="subtitle-light">Shares</div>
-                            <div className="shares">?</div>
+                            <div className="shares">{levelThreeShares}</div>
                         </div>
                     </div>
                 </div>
