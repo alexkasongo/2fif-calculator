@@ -29,7 +29,7 @@ const Calculator = () => {
     const [inputDisabled, setInputDisabled] = useState(true)
 
     useEffect(() => {
-        console.log(`calculator.js - 9 - 🏝`, {sharePrice});
+        // console.log(`calculator.js - 9 - 🏝`, {sharePrice});
         
 
         if(initialInvestment !== 0) {
