@@ -94,7 +94,7 @@ const Calculator = () => {
     }, [initialInvestment, sharePrice]);
     
     // const handleSubmit = () => {
-    //     console.log(`calculator.js - 5 - ✅`);
+    //     console.log(`calculator.js - 5 - ✅ up`);
     // }
 
     // const handleChange = () => {
