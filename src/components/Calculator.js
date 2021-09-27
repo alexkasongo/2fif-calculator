@@ -93,14 +93,6 @@ const Calculator = () => {
         // #################
     }, [initialInvestment, sharePrice]);
     
-    // const handleSubmit = () => {
-    //     console.log(`calculator.js - 5 - ✅`);
-    // }
-
-    // const handleChange = () => {
-    //     console.log(`calculator.js - 9 - 🌦`);
-    // }
-
     return (
       <div className="cal-bg">
         <div className="table">
