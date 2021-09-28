@@ -89,6 +89,8 @@ const Calculator = () => {
             setlevelThreeShares(oneFifthsInvestment/priceDropLevelThree)
         }
         // #################
+
+        // #################
         // #### LEVEL 4 ####
         // #################
     }, [initialInvestment, sharePrice]);
